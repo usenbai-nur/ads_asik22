@@ -1,47 +1,48 @@
-public class MyArrayList<T> implements MyList<T> {
-    private Object[] elements;
+public class MyLinkedList<T> implements MyList<T> {
+    private MyNode<T> head;
     private int length;
 
-    public MyArrayList() {
-        elements = new Object[5];
+    public MyLinkedList() {
+        head = null;
         length = 0;
     }
-
-    public void add(T element) {
-        if (length == elements.length) {
-            increaseCapacity();
+    @Override
+    public void add(T item) {
+        MyNode<T> newNode = new MyNode<>(item);
+        if(head == null){
+            head = newNode;
         }
-        elements[length++] = element;
-    }
-
-    private void increaseCapacity() {
-        Object[] newElements = new Object[elements.length * 2];
-        for (int i = 0; i < elements.length; i++) {
-            newElements[i] = elements[i]; //upcasting
+        else {
+            MyNode<T> current = head;
+            while(current.next != null){
+                current = current.next;
+            }
+            current.next = newNode;
         }
-        elements = newElements;
+        length++;
     }
 
-    public T get(int index) {
-        checkIndex(index);
-        return (T) elements[index]; //downcasting
-    }
-
-    public void remove(int index){
-        checkIndex(index);
-        for (int i = index; i < length - 1; i++) {
-            elements[i] = elements[i+1];
-        }
-    }
-
-    private void checkIndex(int index){
-        if (index < 0 || index >= length) {
-            throw new IndexOutOfBoundsException("Index: " + index + " not found");
-        }
-    }
-
+    @Override
     public int size() {
         return length;
     }
 
+    @Override
+    public void remove(int index) {
+
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public T get(int index) {
+        MyNode<T> current = head;
+        for(int i = 0; i < index; i++){
+            current = current.next;
+        }
+        return current.data;
+    }
 }
