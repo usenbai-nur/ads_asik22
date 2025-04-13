@@ -14,34 +14,40 @@ public class MyArrayList<T> implements MyList<T> {
         elements[length++] = element;
     }
 
-    private void increaseCapacity() {
-        Object[] newElements = new Object[elements.length * 2];
-        for (int i = 0; i < elements.length; i++) {
-            newElements[i] = elements[i]; //upcasting
-        }
-        elements = newElements;
-    }
-
     public T get(int index) {
         checkIndex(index);
-        return (T) elements[index]; //downcasting
+        return (T) elements[index]; // downcasting
     }
 
-    public void remove(int index){
+    public void set(int index, T element) {
+        checkIndex(index);
+        elements[index] = element;
+    }
+
+    public void remove(int index) {
         checkIndex(index);
         for (int i = index; i < length - 1; i++) {
-            elements[i] = elements[i+1];
+            elements[i] = elements[i + 1];
         }
-    }
-
-    private void checkIndex(int index){
-        if (index < 0 || index >= length) {
-            throw new IndexOutOfBoundsException("Index: " + index + " not found");
-        }
+        elements[length - 1] = null; // чистим последний
+        length--;
     }
 
     public int size() {
         return length;
     }
 
+    private void increaseCapacity() {
+        Object[] newElements = new Object[elements.length * 2];
+        for (int i = 0; i < elements.length; i++) {
+            newElements[i] = elements[i];
+        }
+        elements = newElements;
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= length) {
+            throw new IndexOutOfBoundsException("Index: " + index + " not found");
+        }
+    }
 }
