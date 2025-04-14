@@ -16,7 +16,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     public T get(int index) {
         checkIndex(index);
-        return (T) elements[index]; // downcasting
+        return (T) elements[index];
     }
 
     public void set(int index, T element) {
@@ -29,7 +29,7 @@ public class MyArrayList<T> implements MyList<T> {
         for (int i = index; i < length - 1; i++) {
             elements[i] = elements[i + 1];
         }
-        elements[length - 1] = null; // чистим последний
+        elements[length - 1] = null;
         length--;
     }
 

@@ -9,7 +9,7 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public void add(T item) {
-        addLast(item); // теперь add просто вызывает addLast
+        addLast(item);
     }
 
     public void addLast(T item) {
